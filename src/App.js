@@ -10,7 +10,16 @@ export default function App() {
     formState: { errors },
     // Ուղարկելու համարա
     handleSubmit
-  } = useForm();
+  } = useForm({
+    // useForm() - կարող ենք տալ օբյեկտ իրա settings-ով կանչվելու ժամանակ
+    // Ամենա հադիպող setting-ը դա mode-ն է որը ունի 5 տեսակի ռեժիմ
+    // default mode: "onSubmit"-է վալիդացյան կատարվում է ուղարկվելու       ժամանակ
+    // mode: "all" - միշտ ստուգի
+    // mode: "onBlur" - Blur - ժամանակ ստուգի հենց focus հանեք դաշտի վրայից
+    // mode: "onChange" - ․․․
+    // mode: "onTouched" - ․․․
+    mode: "onBlur"
+  });
 
   const onSubmit = (data) => {
     // Սա կաշխատի երբ չունենաք ոչ մի սխալ form-ում
@@ -60,7 +69,6 @@ export default function App() {
           <input
             {...register("lastName", {
               required: "Error Mesage",
-
               minLength: {
                 value: 5,
                 message: "Minimum 5 sybhol"
