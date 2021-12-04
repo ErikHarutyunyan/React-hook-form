@@ -7,9 +7,11 @@ export default function App() {
     register,
     // formState - օբյեկտա որը ունի հառկությոներ
     // formState - errors - պահվումա սխալները
-    formState: { errors },
+    formState: { errors, isValid },
     // Ուղարկելու համարա
-    handleSubmit
+    handleSubmit,
+    // reset մեթոդը օգտագործում ենք ուղարկելուց հետո ջնջենք դաշտերի տվյալները
+    reset
   } = useForm({
     // useForm() - կարող ենք տալ օբյեկտ իրա settings-ով կանչվելու ժամանակ
     // Ամենա հադիպող setting-ը դա mode-ն է որը ունի 5 տեսակի ռեժիմ
@@ -21,9 +23,14 @@ export default function App() {
     mode: "onBlur"
   });
 
+  // useForm - օգտագործելուց չի լինում ամեն անգամ render
+
   const onSubmit = (data) => {
     // Սա կաշխատի երբ չունենաք ոչ մի սխալ form-ում
     alert(JSON.stringify(data));
+
+    // կանչում ենք reset մեթոդը
+    reset();
   };
   return (
     <div className="App">
@@ -80,7 +87,7 @@ export default function App() {
           </div>
         </label>
 
-        <input type="submit" value="submit" />
+        <input type="submit" value="submit" disabled={!isValid} />
       </form>
     </div>
   );
